@@ -13,9 +13,9 @@
       "**/.vscode/**/*",
       "**/index.html",
       "**/vite.config.js",
+
       "!**/src/routeTree.gen.ts",
-      "!src/components/ui/**/*",
-      "!**/styles.css"
+      "!src/components/ui/**/*"
     ]
   },
   "formatter": {
@@ -88,6 +88,11 @@
       "quoteStyle": "double",
       "lineWidth": 100,
       "semicolons": "always"
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
     }
   }
 }
