@@ -81,14 +81,12 @@ src/
 ### Route File Naming
 
 - **Page routes**: Use descriptive names matching the URL
-
   - `index.tsx` → `/`
   - `about.tsx` → `/about`
   - `posts.$postId.tsx` → `/posts/:postId`
   - `api.hello.ts` → API endpoint `/api/hello`
 
 - **Layout routes**: Use leading underscore for grouping
-
   - `_layout.tsx` → Shared layout without path segment
   - `(authenticated)/_layout.tsx` → Grouped layout routes
 
@@ -407,18 +405,16 @@ enum UserRole {
 
 ## Code Quality Standards
 
-### Linting & Formatting (Biome)
+### Linting & Formatting (Oxlint & Oxfmt)
 
-The project uses Biome v2 for linting and code formatting. Configuration in `biome.json`:
+The project uses [Oxlint](https://oxc.rs/docs/guide/usage/linter) and [Oxfmt](https://oxc.rs/docs/guide/usage/formatter) for linting and formatting. Configuration in `.oxlintrc.json` and `.oxfmtrc.json`.
 
-**Style Rules (Errors)**:
+**Oxlint categories enabled**:
 
-- No parameter reassignment
-- Use `as const` assertions appropriately
-- Default parameters last in function signatures
-- Always initialize enum members
-- Self-closing elements in JSX
-- Single variable declarator per line
+- Correctness (error)
+- Suspicious (warn)
+- Style (warn)
+- React, TypeScript, and Vitest plugins
 
 ### React & TSX Conventions
 
@@ -470,7 +466,7 @@ import { cn } from '@/lib/utils'
   Button
 </div>
 
-// ✅ Sort Tailwind classes (Biome useSortedClasses)
+// ✅ Sort Tailwind classes (Oxfmt sortTailwindcss)
 <div className="flex items-center justify-center px-4 py-2 rounded-lg">
 ```
 
@@ -624,7 +620,7 @@ Follow these principles when developing TanStack Router and Start applications:
 4. **Use search params for state** - Make URLs shareable and bookmarkable
 5. **Leverage loaders** - Pre-load data before rendering
 6. **Type everything end-to-end** - From server functions to client components
-7. **Follow Biome standards** - Keep code formatted and linted consistently
+7. **Follow Oxlint/Oxfmt standards** - Keep code formatted and linted consistently
 8. **Use TanStack ecosystem** - Combine Router, Start, Query, and Form
 9. **Keep components simple** - Compose larger UIs from focused components
 10. **Validate inputs** - Use Zod for schemas, especially in forms and server functions

@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DemosCachedRouteImport } from './routes/demos/cached'
 import { Route as ApiDemoRouteImport } from './routes/api/demo'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DemosCachedRoute = DemosCachedRouteImport.update({
+  id: '/demos/cached',
+  path: '/demos/cached',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiDemoRoute = ApiDemoRouteImport.update({
@@ -26,27 +32,31 @@ const ApiDemoRoute = ApiDemoRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/api/demo': typeof ApiDemoRoute
+  '/demos/cached': typeof DemosCachedRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/api/demo': typeof ApiDemoRoute
+  '/demos/cached': typeof DemosCachedRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/api/demo': typeof ApiDemoRoute
+  '/demos/cached': typeof DemosCachedRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/demo'
+  fullPaths: '/' | '/api/demo' | '/demos/cached'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/demo'
-  id: '__root__' | '/' | '/api/demo'
+  to: '/' | '/api/demo' | '/demos/cached'
+  id: '__root__' | '/' | '/api/demo' | '/demos/cached'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApiDemoRoute: typeof ApiDemoRoute
+  DemosCachedRoute: typeof DemosCachedRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/demos/cached': {
+      id: '/demos/cached'
+      path: '/demos/cached'
+      fullPath: '/demos/cached'
+      preLoaderRoute: typeof DemosCachedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/demo': {
@@ -71,6 +88,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApiDemoRoute: ApiDemoRoute,
+  DemosCachedRoute: DemosCachedRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

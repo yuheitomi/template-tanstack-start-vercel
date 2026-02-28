@@ -6,6 +6,7 @@ import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import Header from "@/components/header";
 
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
+
 import appCss from "../styles.css?url";
 
 interface RouterContext {
@@ -23,6 +24,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
   }),
 
   shellComponent: RootDocument,
+  notFoundComponent: () => <div>Not Found</div>,
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
@@ -35,14 +37,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <Header />
         {children}
         <TanStackDevtools
-          config={{
-            position: "bottom-right",
-          }}
+          config={{ position: "bottom-right" }}
           plugins={[
-            {
-              name: "Tanstack Router",
-              render: <TanStackRouterDevtoolsPanel />,
-            },
+            { name: "Tanstack Router", render: <TanStackRouterDevtoolsPanel /> },
             TanStackQueryDevtools,
           ]}
         />
